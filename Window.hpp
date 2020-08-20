@@ -9,12 +9,12 @@ class Window
 public:
     enum class Event
     {
-        none,
-        close,
-        clickPauseButton,
-        clickNextButton,
-        clickSaveButton,
-        clickLoadButton
+        None,
+        Close,
+        ClickPauseButton,
+        ClickNextButton,
+        ClickSaveButton,
+        ClickLoadButton
     };
 
 public:

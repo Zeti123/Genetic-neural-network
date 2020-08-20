@@ -50,20 +50,20 @@ Window::Event Window::pollEvent()
     while (_window.pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
-            return Event::close;
+            return Event::Close;
         if (event.type == sf::Event::KeyPressed)
         {
             if(event.key.code == sf::Keyboard::P)
-                return Event::clickPauseButton;
+                return Event::ClickPauseButton;
             if(event.key.code == sf::Keyboard::N)
-                return Event::clickNextButton;
+                return Event::ClickNextButton;
             if(event.key.code == sf::Keyboard::S)
-                return Event::clickSaveButton;
+                return Event::ClickSaveButton;
             if(event.key.code == sf::Keyboard::L)
-                return Event::clickLoadButton;
+                return Event::ClickLoadButton;
         }
     }
-    return Event::none;
+    return Event::None;
 }
 
 std::pair<int, int> Window::getMousePosition()

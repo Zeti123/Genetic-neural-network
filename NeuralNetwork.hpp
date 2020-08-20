@@ -101,50 +101,39 @@ private:
     decltype(auto) feedForwardRec(Matrix<float, NN, 1>& vector, const Node<NN, NN2, Nargs...>& matrix)
     {
         Matrix<float, NN2, 1> newVec = vector*matrix.matrix;
-        for (size_t i = 0; i < NN2; i++)
-            newVec[0][i] = std::max(-1.f, newVec[0][i]);
-        return feedForwardRec<NN2, Nargs...>(newVec, matrix.next);
-    }
-    template <size_t NN, size_t NN2>
-    decltype(auto) feedForwardRec(Matrix<float, NN, 1>& vector, const Node<NN, NN2>& matrix)
-    {
-        Matrix<float, NN2, 1> newVec = vector*matrix.matrix;
-        for (size_t i = 0; i < NN2; i++)
-            newVec[0][i] = std::tanh(newVec[0][i]);
-        return newVec;
+        if constexpr (sizeof...(Nargs) > 0)
+        {
+            for (size_t i = 0; i < NN2; i++)
+                newVec[0][i] = std::max(-1.f, newVec[0][i]);
+            return feedForwardRec<NN2, Nargs...>(newVec, matrix.next);
+        }
+        else
+        {
+        	for (size_t i = 0; i < NN2; i++)
+            	newVec[0][i] = std::tanh(newVec[0][i]);
+        	return newVec;
+        }
     }
     template <size_t NN, size_t NN2, size_t... Nargs>
     void mutateRec(float chance, std::pair<float, float> interval, Node<NN, NN2, Nargs...>* matrix)
     {
         randomizeMatrix(chance, interval, &matrix->matrix);
-        mutateRec(chance, interval, &matrix->next);
-    }
-    template <size_t NN, size_t NN2>
-    void mutateRec(float chance, std::pair<float, float> interval, Node<NN, NN2>* matrix)
-    {
-        randomizeMatrix(chance, interval, &matrix->matrix);
+        if constexpr (sizeof...(Nargs) > 0)
+            mutateRec(chance, interval, &matrix->next);
     }
     template <size_t NN, size_t NN2, size_t... Nargs>
     void ostreamOperatorRec(std::ostream& os, const Node<NN, NN2, Nargs...>* matrix) const
     {
         os<<matrix->matrix<<std::endl;
-        ostreamOperatorRec(os, &matrix->next);
-    }
-    template <size_t NN, size_t NN2>
-    void ostreamOperatorRec(std::ostream& os, const Node<NN, NN2>* matrix) const
-    {
-        os<<matrix->matrix;
+        if constexpr (sizeof...(Nargs) > 0)
+            ostreamOperatorRec(os, &matrix->next);
     }
     template <size_t NN, size_t NN2, size_t... Nargs>
     void istreamOperatorRec(std::istream& is, Node<NN, NN2, Nargs...>* matrix)
     {
         is>>matrix->matrix;
-        istreamOperatorRec(is, &matrix->next);
-    }
-    template <size_t NN, size_t NN2>
-    void istreamOperatorRec(std::istream& is, Node<NN, NN2>* matrix)
-    {
-        is>>matrix->matrix;
+        if constexpr (sizeof...(Nargs) > 0)
+            istreamOperatorRec(is, &matrix->next);
     }
 
     Node<N, N2, args...> _matrices;

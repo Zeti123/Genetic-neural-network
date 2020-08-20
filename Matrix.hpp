@@ -60,7 +60,7 @@ public:
     {
         _matrix = std::move(list);
     }
-    constexpr inline std::array<T, x>& operator[](int index)
+    inline std::array<T, x>& operator[](int index)
     {
         return _matrix[index];
     }

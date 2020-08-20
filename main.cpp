@@ -101,11 +101,11 @@ int main()
             Window::Event event = windowActions(status, selectedBox);
             switch (event)
             {
-            case Window::Event::close:
+            case Window::Event::Close:
                 window.close();
                 return 0;
                 break;
-            case Window::Event::clickLoadButton:
+            case Window::Event::ClickLoadButton:
                 if (selectedBox != std::nullopt)
                 {
                     std::string fileName;
@@ -118,13 +118,13 @@ int main()
                     }
                 }
                 break;
-            case Window::Event::clickNextButton:
+            case Window::Event::ClickNextButton:
                 if (status == Status::Pause)
                     status = Status::Drawing60fps;
                 else
                     status = static_cast<Status>((static_cast<int>(status) + 1)%4);
                 break;
-            case Window::Event::clickSaveButton:
+            case Window::Event::ClickSaveButton:
                 if (selectedBox != std::nullopt)
                 {
                     std::string fileName;
@@ -137,10 +137,10 @@ int main()
                     }
                 }
                 break;
-            case Window::Event::clickPauseButton:
+            case Window::Event::ClickPauseButton:
                 status = (status == Status::Pause) ? Status::Drawing60fps : Status::Pause;
                 break;
-            case Window::Event::none:
+            case Window::Event::None:
                 break;
             }
         }

@@ -11,12 +11,12 @@ public:
     void moveHero(std::pair<float, float> vec);
     void reset();
 
-    inline std::pair<float, float> getHeroPos() const {return _heroPos;}
-    inline std::pair<float, float> getFoodPos() const {return _foodPos;}
-    inline int getScore() const {return _score;}
-    inline size_t getSize() const {return _boxSize;}
-    inline float getHeroSize() const {return _rHero;}
-    inline float getFoodSize() const {return _rFood;}
+    inline std::pair<float, float> getHeroPos() const { return _heroPos; }
+    inline std::pair<float, float> getFoodPos() const { return _foodPos; }
+    inline int getScore() const { return _score; }
+    inline size_t getSize() const { return _boxSize; }
+    inline float getHeroSize() const { return _rHero; }
+    inline float getFoodSize() const { return _rFood; }
 
 private:
     static constexpr size_t _boxSize = 100;
